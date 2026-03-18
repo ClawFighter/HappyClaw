@@ -747,16 +747,37 @@
         
         createParticles();
         
-        // Language switch
-        let currentLang = 'zh';
+        // Language switch - Auto-detect with English as default
+        let currentLang = 'en'; // Default to English
         
-        function switchLang(lang) {
-            currentLang = lang;
+        // Auto-detect user's language preference
+        function detectLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            // If user's browser is set to Chinese, use Chinese; otherwise English
+            if (userLang.toLowerCase().includes('zh') || userLang.toLowerCase().includes('cn')) {
+                return 'zh';
+            }
+            return 'en';
+        }
+        
+        // Initialize language on page load
+        function initLanguage() {
+            const detectedLang = detectLanguage();
+            currentLang = detectedLang;
+            
+            // Update button states
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
+                if (btn.textContent === (detectedLang === 'zh' ? '中文' : 'English')) {
+                    btn.classList.add('active');
+                }
             });
-            event.target.classList.add('active');
             
+            // Apply language to all elements
+            applyLanguage(detectedLang);
+        }
+        
+        function applyLanguage(lang) {
             document.querySelectorAll('[data-zh]').forEach(el => {
                 if (lang === 'zh') {
                     el.textContent = el.getAttribute('data-zh');
@@ -767,6 +788,21 @@
             
             document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
         }
+        
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === (lang === 'zh' ? '中文' : 'English')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            applyLanguage(lang);
+        }
+        
+        // Auto-detect and apply language on page load
+        initLanguage();
         
         // Tab switch
         function switchTab(tabId) {
