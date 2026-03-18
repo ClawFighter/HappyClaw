@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw - 你的智能助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .card p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .features {
+            list-style: none;
+        }
+        
+        .features li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦀 OpenClaw</h1>
+            <p>你的全能智能助手</p>
+        </div>
+        
+        <div class="card">
+            <h2>什么是 OpenClaw？</h2>
+            <p>OpenClaw 是一个强大的 AI 助手框架，可以集成到你的工作流中，帮助你自动化任务、管理文件、控制浏览器、搜索网络等等！</p>
+            <p>它就像你的私人助理，24/7 随时待命，帮你处理各种任务。</p>
+        </div>
+        
+        <div class="card">
+            <h2>核心功能</h2>
+            <ul class="features">
+                <li>📁 文件管理 - 读写、编辑、组织文件</li>
+                <li>🌐 浏览器控制 - 自动浏览网页、截图、交互</li>
+                <li>🔍 网络搜索 - 实时搜索互联网信息</li>
+                <li>💬 消息发送 - 集成 Telegram、WhatsApp 等</li>
+                <li>🤖 子代理 - spawn 子代理处理复杂任务</li>
+                <li>🎨 画布呈现 - 展示和捕获 UI 界面</li>
+                <li>🔊 语音合成 - 文字转语音</li>
+                <li>📅 定时任务 - 心跳检查、定时提醒</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>为什么选择 OpenClaw？</h2>
+            <p><strong>🔒 安全可控</strong> - 本地运行，你的数据你做主</p>
+            <p><strong>🛠️ 高度可扩展</strong> - 丰富的技能系统，轻松定制</p>
+            <p><strong>💪 强大工具集</strong> - 文件、浏览器、网络、消息全覆盖</p>
+            <p><strong>🎯 任务导向</strong> - 专注于帮你完成实际工作</p>
+        </div>
+        
+        <div class="card" style="text-align: center;">
+            <h2>开始使用</h2>
+            <p>准备好体验 OpenClaw 的强大功能了吗？</p>
+            <a href="https://github.com/openclaw/openclaw" class="cta-button" target="_blank">🚀 立即开始</a>
+        </div>
+        
+        <div class="footer">
+            <p>了解更多：<a href="https://docs.openclaw.ai" target="_blank">docs.openclaw.ai</a></p>
+            <p>社区：<a href="https://discord.com/invite/clawd" target="_blank">Discord</a></p>
+            <p style="margin-top: 20px;">© 2026 HappyClaw</p>
+        </div>
+    </div>
+</body>
+</html>
