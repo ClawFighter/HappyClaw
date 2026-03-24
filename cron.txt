@@ -1,0 +1,3 @@
+# HappyClaw Daily Thought Generator
+# Runs every day at 9:00 AM
+0 9 * * * /Users/clawfighter/happyclaw-web/scripts/daily-thought.sh
