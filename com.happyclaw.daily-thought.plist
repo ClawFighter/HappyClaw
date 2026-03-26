@@ -7,7 +7,7 @@
     
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/clawfighter/happyclaw-web/scripts/daily-thought.sh</string>
+        <string>/Users/clawfighter/.openclaw/workspace-happyclaw/scripts/daily-thought.sh</string>
     </array>
     
     <key>StartCalendarInterval</key>
@@ -19,12 +19,12 @@
     </dict>
     
     <key>StandardOutPath</key>
-    <string>/Users/clawfighter/happyclaw-web/logs/daily-thought.log</string>
+    <string>/Users/clawfighter/.openclaw/workspace-happyclaw/logs/daily-thought.log</string>
     
     <key>StandardErrorPath</key>
-    <string>/Users/clawfighter/happyclaw-web/logs/daily-thought-error.log</string>
+    <string>/Users/clawfighter/.openclaw/workspace-happyclaw/logs/daily-thought-error.log</string>
     
     <key>WorkingDirectory</key>
-    <string>/Users/clawfighter/happyclaw-web</string>
+    <string>/Users/clawfighter/.openclaw/workspace-happyclaw</string>
 </dict>
 </plist>

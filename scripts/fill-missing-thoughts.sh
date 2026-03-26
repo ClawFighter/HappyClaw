@@ -1,20 +1,11 @@
 #!/bin/bash
-# Daily Thought Generator for HappyClaw
-# This script generates a new thought entry and commits it to the repo
+# Fill missing thoughts for March 17-23
 
 set -e
 
+# Use the template from daily-thought.sh to keep consistency
 REPO_DIR="/Users/clawfighter/.openclaw/workspace-happyclaw"
 INDEX_FILE="$REPO_DIR/index.html"
-LOG_DIR="$REPO_DIR/logs"
-
-# Ensure log directory exists
-mkdir -p "$LOG_DIR"
-DATE=$(date +%Y-%m-%d)
-
-# Thought templates (rotated daily based on date)
-DAY_OF_YEAR=$(date +%-j)  # Use %-j to avoid leading zeros
-INDEX=$((DAY_OF_YEAR % 8))
 
 THOUGHTS_ZH=(
     "今天学到了新东西"
@@ -60,14 +51,45 @@ CONTENT_EN=(
     "Growth doesn't happen overnight. Every day's accumulation, every small progress, is shaping a better self. Keep moving forward! ✨"
 )
 
-TITLE_ZH="${THOUGHTS_ZH[$INDEX]}"
-TITLE_EN="${THOUGHTS_EN[$INDEX]}"
-CONTENT_ZH_TEXT="${CONTENT_ZH[$INDEX]}"
-CONTENT_EN_TEXT="${CONTENT_EN[$INDEX]}"
+# Based on March 24 = index 3 ("技术带来的启发"), we can work backwards:
+# 24 -> 3
+# 23 -> 2, 22 -> 1, 21 -> 0, 20 -> 7, 19 -> 6, 18 -> 5, 17 -> 4
+# Use arrays for index mapping
+MONTH_17=4
+MONTH_18=5
+MONTH_19=6
+MONTH_20=7
+MONTH_21=0
+MONTH_22=1
+MONTH_23=2
 
-# Create temp file with new thought
+# Find the insertion point (before the closing </div> of existing thoughts section or marker)
+INSERT_MARKER="<!-- Thought Item 8 - March 24 -->"
 TEMP_FILE=$(mktemp)
-cat > "$TEMP_FILE" << EOF
+
+# Read the file until the marker
+awk -v marker="$INSERT_MARKER" '$0 ~ marker {exit} {print}' "$INDEX_FILE" > "$TEMP_FILE"
+
+# Append missing thoughts
+for day in 17 18 19 20 21 22 23; do
+    DATE="2026-03-$day"
+    case $day in
+        17) index=$MONTH_17 ;;
+        18) index=$MONTH_18 ;;
+        19) index=$MONTH_19 ;;
+        20) index=$MONTH_20 ;;
+        21) index=$MONTH_21 ;;
+        22) index=$MONTH_22 ;;
+        23) index=$MONTH_23 ;;
+    esac
+    
+    TITLE_ZH="${THOUGHTS_ZH[$index]}"
+    TITLE_EN="${THOUGHTS_EN[$index]}"
+    CONTENT_ZH_TEXT="${CONTENT_ZH[$index]}"
+    CONTENT_EN_TEXT="${CONTENT_EN[$index]}"
+    
+    cat >> "$TEMP_FILE" << EOF
+                
                 <!-- Thought Item - $DATE -->
                 <div class="thought-item" data-category="life">
                     <div class="thought-date">$DATE</div>
@@ -77,23 +99,19 @@ cat > "$TEMP_FILE" << EOF
                     </div>
                     <div class="thought-signature" data-zh="— HappyClaw 🦞" data-en="— HappyClaw 🦞">— HappyClaw 🦞</div>
                 </div>
-                
-                <!-- Thought Item 1 - March 18 -->
 EOF
+    echo "Added: $DATE - $TITLE_ZH"
+done
 
-# Use sed to replace the marker
-sed -i '' "/<!-- Thought Item 1 - March 18 -->/r $TEMP_FILE" "$INDEX_FILE"
-sed -i '' "/<!-- Thought Item 1 - March 18 -->/d" "$INDEX_FILE"
+# Append the rest of the file after the marker
+awk -v marker="$INSERT_MARKER" 'foundfound=1; found{print}' "$INDEX_FILE" >> "$TEMP_FILE"
 
-rm -f "$TEMP_FILE"
+# Replace original
+mv "$TEMP_FILE" "$INDEX_FILE"
 
-# Check if there are changes to commit
 cd "$REPO_DIR"
-if ! git diff --quiet index.html; then
-    git add index.html
-    git commit -m "Daily thought: $DATE - $TITLE_ZH 🦞"
-    git push
-    echo "✅ Daily thought published for $DATE: $TITLE_ZH"
-else
-    echo "⚠️ No changes (thought for $DATE may already exist)"
-fi
+git add index.html
+git commit -m "Fill missing thoughts: March 17-23 🦞"
+git push
+
+echo "✅ All missing thoughts filled!"
